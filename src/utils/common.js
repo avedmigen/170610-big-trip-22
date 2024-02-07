@@ -1,3 +1,4 @@
-const getRandomArrayElement = (items) => items[Math.floor(Math.random() * items.length)];
+const getRandomArrayElement = (items) =>
+  items[Math.floor(Math.random() * items.length)];
 
 export { getRandomArrayElement };

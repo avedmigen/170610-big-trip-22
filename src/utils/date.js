@@ -9,14 +9,18 @@ const POINT_TIME_FORMAT = 'HH:mm';
 const POINT_DATE_TIME_TYPE_FORMAT = 'YYYY-MM-DDTHH:mm';
 const POINT_INPUT_DATE_TIME_FORMAT = 'DD/MM/YY HH:mm';
 
-const humanizePointDateTime = (pointDate) => pointDate ? dayjs(pointDate).format(POINT_DATE_TIME_FORMAT) : '';
-const humanizePointDateDate = (pointDate) => pointDate ? dayjs(pointDate).format(POINT_DATE_DATE_FORMAT) : '';
-const humanizePointTimeDate = (pointDate) => pointDate ? dayjs(pointDate).format(POINT_TIME_FORMAT) : '';
-const humanizePointDateTimeType = (pointDate) => pointDate ? dayjs(pointDate).format(POINT_DATE_TIME_TYPE_FORMAT) : '';
-const humanizePointInputDateTimeType = (pointDate) => pointDate ? dayjs(pointDate).format(POINT_INPUT_DATE_TIME_FORMAT) : '';
+const humanizePointDateTime = (pointDate) =>
+  pointDate ? dayjs(pointDate).format(POINT_DATE_TIME_FORMAT) : '';
+const humanizePointDateDate = (pointDate) =>
+  pointDate ? dayjs(pointDate).format(POINT_DATE_DATE_FORMAT) : '';
+const humanizePointTimeDate = (pointDate) =>
+  pointDate ? dayjs(pointDate).format(POINT_TIME_FORMAT) : '';
+const humanizePointDateTimeType = (pointDate) =>
+  pointDate ? dayjs(pointDate).format(POINT_DATE_TIME_TYPE_FORMAT) : '';
+const humanizePointInputDateTimeType = (pointDate) =>
+  pointDate ? dayjs(pointDate).format(POINT_INPUT_DATE_TIME_FORMAT) : '';
 
 const getFormattedDiffDuration = (dateTo, dateFrom) => {
-
   const durationInMinutes = dayjs(dateTo).diff(dayjs(dateFrom), 'minute');
 
   const minutes = durationInMinutes % 60;
@@ -32,14 +36,15 @@ const getFormattedDiffDuration = (dateTo, dateFrom) => {
   } else {
     return `${formatValue(days)}D ${formatValue(hours)}H ${formatValue(minutes)}M`;
   }
-
 };
 
-const compareDates = (dateA, dateB) => dayjs(dateA).isBefore(dayjs(dateB)) ? -1 : 1;
+const compareDates = (dateA, dateB) =>
+  dayjs(dateA).isBefore(dayjs(dateB)) ? -1 : 1;
 
 const isEventFuture = (date) => dayjs(date).diff(dayjs()) > 0;
 
-const isEventPresent = (dateFrom, dateTo) => dayjs(dateFrom).diff(dayjs()) <= 0 && dayjs(dateTo).diff(dayjs()) >= 0;
+const isEventPresent = (dateFrom, dateTo) =>
+  dayjs(dateFrom).diff(dayjs()) <= 0 && dayjs(dateTo).diff(dayjs()) >= 0;
 
 const isEventPast = (date) => dayjs(date).diff(dayjs()) < 0;
 

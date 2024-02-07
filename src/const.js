@@ -7,7 +7,7 @@ const OFFERS_TYPES = [
   'flight',
   'check-in',
   'sightseeing',
-  'restaurant'
+  'restaurant',
 ];
 
 const FilterType = {
@@ -45,7 +45,7 @@ const BLANK_POINT = {
   'destination': '',
   'isFavorite': false,
   'offers': [],
-  'type': 'flight'
+  'type': 'flight',
 };
 
 const Method = {
@@ -70,7 +70,7 @@ const commonDatepickerConfig = {
     firstDayOfWeek: 1,
   },
   'time_24hr': true,
-  allowInput: true
+  allowInput: true,
 };
 
 const DASH_SEPARATOR = '&nbsp;&mdash;&nbsp;';
@@ -86,5 +86,5 @@ export {
   Url,
   DESTINATIONS_ITEMS_COUNT,
   commonDatepickerConfig,
-  DASH_SEPARATOR
+  DASH_SEPARATOR,
 };

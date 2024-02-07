@@ -4,7 +4,6 @@ import { filter } from '../utils/filter.js';
 import { FilterType, UpdateType } from '../const.js';
 
 export default class FilterPresenter {
-
   #filterContainer = null;
   #filterModel = null;
   #pointsModel = null;
@@ -33,13 +32,11 @@ export default class FilterPresenter {
     const filters = this.filters;
     const prevFilterComponent = this.#filterComponent;
 
-    this.#filterComponent = new FiltersView(
-      {
-        filters,
-        currentFilterType: this.#filterModel.filter,
-        onFilterTypeChange: this.#handleFilterTypeChange
-      }
-    );
+    this.#filterComponent = new FiltersView({
+      filters,
+      currentFilterType: this.#filterModel.filter,
+      onFilterTypeChange: this.#handleFilterTypeChange,
+    });
 
     if (prevFilterComponent === null) {
       render(this.#filterComponent, this.#filterContainer);

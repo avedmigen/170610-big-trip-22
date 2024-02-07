@@ -17,7 +17,6 @@ const TimeLimit = {
 };
 
 export default class BoardPresenter {
-
   #boardContainer = null;
 
   #pointsModel = null;
@@ -42,7 +41,7 @@ export default class BoardPresenter {
 
   #uiBlocker = new UiBlocker({
     lowerLimit: TimeLimit.LOWER_LIMIT,
-    upperLimit: TimeLimit.UPPER_LIMIT
+    upperLimit: TimeLimit.UPPER_LIMIT,
   });
 
   constructor({
@@ -51,7 +50,7 @@ export default class BoardPresenter {
     destinationsModel,
     offersModel,
     filterModel,
-    onNewEventDestroy
+    onNewEventDestroy,
   }) {
     this.#boardContainer = boardContainer;
 
@@ -68,11 +67,9 @@ export default class BoardPresenter {
 
     this.#pointsModel.addObserver(this.#handleModelEvent);
     this.#filterModel.addObserver(this.#handleModelEvent);
-
   }
 
   get points() {
-
     this.#filterType = this.#filterModel.filter;
     const points = this.#pointsModel.points;
     const filteredPoints = filter[this.#filterType](points);
@@ -118,7 +115,7 @@ export default class BoardPresenter {
   #renderSort() {
     this.#sortComponent = new SortView({
       currentSortType: this.#currentSortType,
-      onSortTypeChange: this.#handleSortTypeChange
+      onSortTypeChange: this.#handleSortTypeChange,
     });
 
     render(this.#sortComponent, this.#boardContainer);
@@ -132,16 +129,10 @@ export default class BoardPresenter {
     });
     pointPresenter.init(point, destinations, offers);
     this.#eventPresenters.set(point.id, pointPresenter);
-
   }
 
   #renderPoints(points, destinations, offers) {
-    points
-      .forEach((point) => this.#renderPoint(
-        point,
-        destinations,
-        offers,
-      ));
+    points.forEach((point) => this.#renderPoint(point, destinations, offers));
   }
 
   #renderLoading() {
@@ -150,7 +141,7 @@ export default class BoardPresenter {
 
   #renderNoEvents() {
     this.#noEventComponent = new NoEventView({
-      filterType: this.#filterType
+      filterType: this.#filterType,
     });
     render(this.#noEventComponent, this.#boardContainer);
   }
@@ -249,11 +240,9 @@ export default class BoardPresenter {
   #handleModelEvent = (updateType, data) => {
     switch (updateType) {
       case UpdateType.PATCH:
-        this.#eventPresenters.get(data.id).init(
-          data,
-          this.destinations,
-          this.offers,
-        );
+        this.#eventPresenters
+          .get(data.id)
+          .init(data, this.destinations, this.offers);
         break;
       case UpdateType.MINOR:
         this.#clearBoard();
@@ -268,7 +257,10 @@ export default class BoardPresenter {
           this.#renderError();
         } else {
           try {
-            if (this.#destinationsModel.destinations.length === 0 || this.#offersModel.offers.length === 0) {
+            if (
+              this.#destinationsModel.destinations.length === 0 ||
+              this.#offersModel.offers.length === 0
+            ) {
               this.#renderError();
               return;
             }
@@ -292,5 +284,4 @@ export default class BoardPresenter {
     this.#clearBoard({ resetRenderedTaskCount: true });
     this.#renderBoard();
   };
-
 }

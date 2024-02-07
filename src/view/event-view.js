@@ -13,10 +13,12 @@ import {
   humanizePointDateTimeType,
   humanizePointTimeDate,
   getFormattedDiffDuration,
-
 } from '../utils/date.js';
 
 const createEventViewTemplate = (point) => {
+  if (!point) {
+    return;
+  }
 
   const {
     basePrice,
@@ -29,11 +31,13 @@ const createEventViewTemplate = (point) => {
     hasSelectedOffers,
   } = point;
 
+  const selectedOffersTemplate = createSelectedOffersTemplate(
+    hasSelectedOffers,
+    selectedOffers
+  );
 
-  const selectedOffersTemplate = createSelectedOffersTemplate(hasSelectedOffers, selectedOffers);
-
-  return (
-    `<li class="trip-events__item">
+  return `
+    <li class="trip-events__item">
       <div class="event">
         <time class="event__date" datetime="${humanizePointDateTime(dateFrom)}">${humanizePointDateDate(dateFrom)}</time>
         <div class="event__type">
@@ -65,45 +69,31 @@ const createEventViewTemplate = (point) => {
           <span class="visually-hidden">Open event</span>
         </button>
       </div>
-    </li>`
-  );
+    </li>`;
 };
 
 export default class EventView extends AbstractStatefulView {
-
   #handleEditClick = null;
   #handleFavoriteClick = null;
 
-  constructor(
-    {
-      point,
-      destinations,
-      offers,
-      onEditClick,
-      onFavoriteClick
-    }
-  ) {
+  constructor({ point, destinations, offers, onEditClick, onFavoriteClick }) {
     super();
 
-    this._setState(EventView.parsePointToState(
-      point,
-      destinations,
-      offers,
-    ));
+    this._setState(EventView.parsePointToState(point, destinations, offers));
 
     this.#handleEditClick = onEditClick;
     this.#handleFavoriteClick = onFavoriteClick;
 
-    this.element.querySelector('.event__favorite-btn')
+    this.element
+      .querySelector('.event__favorite-btn')
       .addEventListener('click', this.#favoriteClickHandler);
-    this.element.querySelector('.event__rollup-btn')
+    this.element
+      .querySelector('.event__rollup-btn')
       .addEventListener('click', this.#editClickHandler);
   }
 
   get template() {
-    return createEventViewTemplate(
-      this._state,
-    );
+    return createEventViewTemplate(this._state);
   }
 
   #favoriteClickHandler = (evt) => {
@@ -117,7 +107,6 @@ export default class EventView extends AbstractStatefulView {
   };
 
   static parsePointToState(point, destinations, offers) {
-
     const destinationName = getDestinationName(point.destination, destinations);
     const favoriteClassName = point.isFavorite
       ? 'event__favorite-btn--active'

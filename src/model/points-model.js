@@ -20,7 +20,10 @@ export default class PointsModel extends Observable {
 
   async init() {
     try {
-      await Promise.all([this.#destinationsModel.init(), this.#offersModel.init()]);
+      await Promise.all([
+        this.#destinationsModel.init(),
+        this.#offersModel.init(),
+      ]);
       const points = await this.#pointsApiService.points;
       this.#points = points.map(this.#adaptToClient);
     } catch (err) {
@@ -39,7 +42,9 @@ export default class PointsModel extends Observable {
   }
 
   async deletePoint(updateType, update) {
-    const pointIndex = this.#points.findIndex((point) => point.id === update.id);
+    const pointIndex = this.#points.findIndex(
+      (point) => point.id === update.id,
+    );
 
     await this.#pointsApiService.deletePoint(update);
     this.#points = [
@@ -50,7 +55,9 @@ export default class PointsModel extends Observable {
   }
 
   async updatePoint(updateType, update) {
-    const pointIndex = this.#points.findIndex((point) => point.id === update.id);
+    const pointIndex = this.#points.findIndex(
+      (point) => point.id === update.id,
+    );
     const response = await this.#pointsApiService.updatePoint(update);
     const updatedPoint = this.#adaptToClient(response);
 

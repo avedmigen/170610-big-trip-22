@@ -2,9 +2,12 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { SortType } from '../const.js';
 
 const createSortViewTemplate = (sortType) => {
-
   const sortItems = Object.values(SortType).map((type) => {
-    const isDisabled = [SortType.EVENT, SortType.OFFERS].includes(type.toLowerCase());
+    const isDisabled = [SortType.EVENT, SortType.OFFERS].includes(
+      type.toLowerCase()
+    );
+    const isChecked = type === sortType ? 'checked' : '';
+    const isDisabledAttr = isDisabled ? 'disabled' : '';
 
     return `
       <div class="trip-sort__item  trip-sort__item--${type}">
@@ -15,8 +18,8 @@ const createSortViewTemplate = (sortType) => {
           name="trip-sort"
           value="sort-${type}"
           data-sort-type="${type}"
-          ${type === sortType ? 'checked' : ''}
-          ${isDisabled ? 'disabled' : ''}
+          ${isChecked}
+          ${isDisabledAttr}
         >
         <label
           class="trip-sort__btn"
@@ -25,7 +28,11 @@ const createSortViewTemplate = (sortType) => {
     `;
   });
 
-  return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">${sortItems.join('')}</form>`;
+  return `
+    <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+      ${sortItems.join('')}
+    </form>
+  `;
 };
 
 export default class SortView extends AbstractView {

@@ -3,23 +3,16 @@ import EventEditView from '../view/event-edit-view.js';
 import { UserAction, UpdateType } from '../const.js';
 
 export default class NewEventPresenter {
-
   #eventListContainer = null;
   #handleDataChange = null;
   #handleDestroy = null;
 
   #eventEditComponent = null;
 
-  constructor({
-    eventListContainer,
-    onDataChange,
-    onDestroy,
-  }) {
-
+  constructor({ eventListContainer, onDataChange, onDestroy }) {
     this.#eventListContainer = eventListContainer;
     this.#handleDataChange = onDataChange;
     this.#handleDestroy = onDestroy;
-
   }
 
   init(destinations, offers) {
@@ -36,7 +29,11 @@ export default class NewEventPresenter {
       isNewPoint: true,
     });
 
-    render(this.#eventEditComponent, this.#eventListContainer, RenderPosition.AFTERBEGIN);
+    render(
+      this.#eventEditComponent,
+      this.#eventListContainer,
+      RenderPosition.AFTERBEGIN,
+    );
 
     document.addEventListener('keydown', this.#escKeyDownHandler);
   }
@@ -76,11 +73,7 @@ export default class NewEventPresenter {
   }
 
   #handleFormSubmit = (point) => {
-    this.#handleDataChange(
-      UserAction.ADD_POINT,
-      UpdateType.MINOR,
-      point,
-    );
+    this.#handleDataChange(UserAction.ADD_POINT, UpdateType.MINOR, point);
   };
 
   #handleCloseClick = () => {

@@ -9,12 +9,8 @@ const NoEventsTextType = {
 };
 
 const createInfoViewTemplate = (filterType) => {
-
-  const noEventsTextValue = NoEventsTextType[filterType];
-
-  return (
-    `<p class="trip-events__msg">${noEventsTextValue}</p>`
-  );
+  const noEventsText = NoEventsTextType[filterType];
+  return `<p class="trip-events__msg">${noEventsText}</p>`;
 };
 
 export default class NoEventView extends AbstractView {
@@ -28,5 +24,4 @@ export default class NoEventView extends AbstractView {
   get template() {
     return createInfoViewTemplate(this.#filterType);
   }
-
 }

@@ -1,4 +1,8 @@
-const createDestinationListTemplate = (hasPointType, destinations, destinationId) => {
+const createDestinationListTemplate = (
+  hasPointType,
+  destinations,
+  destinationId,
+) => {
   if (!hasPointType) {
     return '';
   }
@@ -8,6 +12,4 @@ const createDestinationListTemplate = (hasPointType, destinations, destinationId
    </datalist>`;
 };
 
-
 export default createDestinationListTemplate;
-

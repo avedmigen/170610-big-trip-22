@@ -1,9 +1,13 @@
-import { render, replace, remove, RenderPosition } from '../framework/render.js';
+import {
+  render,
+  replace,
+  remove,
+  RenderPosition,
+} from '../framework/render.js';
 import InfoView from '../view/info-view.js';
 import { sortByDay } from '../utils/point.js';
 
 export default class InfoPresenter {
-
   #infoContainer = null;
 
   #pointsModel = null;
@@ -12,20 +16,13 @@ export default class InfoPresenter {
 
   #infoComponent = null;
 
-  constructor({
-    infoContainer,
-    pointsModel,
-    destinationsModel,
-    offersModel,
-
-  }) {
+  constructor({ infoContainer, pointsModel, destinationsModel, offersModel }) {
     this.#infoContainer = infoContainer;
     this.#pointsModel = pointsModel;
     this.#destinationsModel = destinationsModel;
     this.#offersModel = offersModel;
 
     this.#pointsModel.addObserver(this.#handleModelEvent);
-
   }
 
   get points() {
@@ -51,16 +48,18 @@ export default class InfoPresenter {
 
     const prevInfoComponent = this.#infoComponent;
 
-    this.#infoComponent = new InfoView(
-      {
-        points: sortedPoints,
-        destinations: destinations,
-        offers: offers,
-      }
-    );
+    this.#infoComponent = new InfoView({
+      points: sortedPoints,
+      destinations: destinations,
+      offers: offers,
+    });
 
     if (prevInfoComponent === null) {
-      render(this.#infoComponent, this.#infoContainer, RenderPosition.AFTERBEGIN);
+      render(
+        this.#infoComponent,
+        this.#infoContainer,
+        RenderPosition.AFTERBEGIN,
+      );
       return;
     }
 
@@ -73,5 +72,4 @@ export default class InfoPresenter {
   #handleModelEvent = () => {
     this.init();
   };
-
 }

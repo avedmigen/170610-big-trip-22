@@ -1,11 +1,13 @@
 import { toUpperCaseFirstLetter } from '../utils/point.js';
 
-const createTypeListTemplate = (offers, pointType) => (
+const createTypeListTemplate = (offers, pointType) =>
   `<div class="event__type-list">
       <fieldset class="event__type-group">
         <legend class="visually-hidden">Event type</legend>
-          ${offers.map(({ type }, index) =>
-    `<div class="event__type-item">
+          ${offers
+    .map(
+      ({ type }, index) =>
+        `<div class="event__type-item">
         <input
           id="event-type-${type}-${index}"
           class="event__type-input visually-hidden"
@@ -18,12 +20,10 @@ const createTypeListTemplate = (offers, pointType) => (
           for="event-type-${type}-${index}">
             ${toUpperCaseFirstLetter(type)}
         </label>
-          </div>`
-  ).join('')}
+          </div>`,
+    )
+    .join('')}
       </fieldset >
-    </div > `
-);
-
+    </div > `;
 
 export default createTypeListTemplate;
-

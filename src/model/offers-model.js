@@ -14,10 +14,8 @@ export default class OffersModel {
     try {
       const offers = await this.#offersApiService.offers;
       this.#offers = offers;
-
     } catch (err) {
       this.#offers = [];
     }
-
   }
 }

@@ -1,21 +1,19 @@
 import ApiService from '../framework/api-service.js';
 import { Method, Url } from '../const.js';
 
-
 export default class PointsApiService extends ApiService {
   get points() {
-    return this._load({ url: `${Url.POINTS}` })
-      .then(ApiService.parseResponse);
+    return this._load({ url: `${Url.POINTS}` }).then(ApiService.parseResponse);
   }
 
   get destinations() {
-    return this._load({ url: `${Url.DESTINATIONS}` })
-      .then(ApiService.parseResponse);
+    return this._load({ url: `${Url.DESTINATIONS}` }).then(
+      ApiService.parseResponse
+    );
   }
 
   get offers() {
-    return this._load({ url: `${Url.OFFERS}` })
-      .then(ApiService.parseResponse);
+    return this._load({ url: `${Url.OFFERS}` }).then(ApiService.parseResponse);
   }
 
   async updatePoint(point) {
@@ -60,7 +58,6 @@ export default class PointsApiService extends ApiService {
       'date_from': point.dateFrom,
       'date_to': point.dateTo,
       'is_favorite': point.isFavorite,
-
     };
 
     delete adaptedPoint.basePrice;
@@ -70,5 +67,4 @@ export default class PointsApiService extends ApiService {
 
     return adaptedPoint;
   }
-
 }

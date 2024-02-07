@@ -10,7 +10,6 @@ const Mode = {
 };
 
 export default class PointPresenter {
-
   #eventListContainer = null;
   #handleDataChange = null;
   #handleModeChange = null;
@@ -31,7 +30,6 @@ export default class PointPresenter {
   }
 
   init(point, destinations, offers) {
-
     this.#point = point;
     this.#destinations = destinations;
     this.#offers = offers;
@@ -39,26 +37,22 @@ export default class PointPresenter {
     const prevEventComponent = this.#eventComponent;
     const prevEventEditComponent = this.#eventEditComponent;
 
-    this.#eventComponent = new EventView(
-      {
-        point: this.#point,
-        destinations: this.#destinations,
-        offers: this.#offers,
-        onEditClick: this.#handleEditClick,
-        onFavoriteClick: this.#handleFavoriteClick
-      }
-    );
+    this.#eventComponent = new EventView({
+      point: this.#point,
+      destinations: this.#destinations,
+      offers: this.#offers,
+      onEditClick: this.#handleEditClick,
+      onFavoriteClick: this.#handleFavoriteClick,
+    });
 
-    this.#eventEditComponent = new EventEditView(
-      {
-        point: this.#point,
-        destinations: this.#destinations,
-        offers: this.#offers,
-        onFormSubmit: this.#handleFormSubmit,
-        onCloseClick: this.#handleCloseClick,
-        onDeleteClick: this.#handleDeleteClick
-      },
-    );
+    this.#eventEditComponent = new EventEditView({
+      point: this.#point,
+      destinations: this.#destinations,
+      offers: this.#offers,
+      onFormSubmit: this.#handleFormSubmit,
+      onCloseClick: this.#handleCloseClick,
+      onDeleteClick: this.#handleDeleteClick,
+    });
 
     if (prevEventComponent === null || prevEventEditComponent === null) {
       render(this.#eventComponent, this.#eventListContainer);
@@ -76,7 +70,6 @@ export default class PointPresenter {
 
     remove(prevEventComponent);
     remove(prevEventEditComponent);
-
   }
 
   destroy() {
@@ -157,15 +150,16 @@ export default class PointPresenter {
   };
 
   #handleFavoriteClick = () => {
-    this.#handleDataChange(
-      UserAction.UPDATE_POINT,
-      UpdateType.MINOR,
-      { ...this.#point, isFavorite: !this.#point.isFavorite },
-    );
+    this.#handleDataChange(UserAction.UPDATE_POINT, UpdateType.MINOR, {
+      ...this.#point,
+      isFavorite: !this.#point.isFavorite,
+    });
   };
 
   #handleFormSubmit = (update) => {
-    const isMinorUpdate = !isDatesEqual(this.#point.dateFrom, update.dateFrom) || this.#point.basePrice !== update.basePrice;
+    const isMinorUpdate =
+      !isDatesEqual(this.#point.dateFrom, update.dateFrom) ||
+      this.#point.basePrice !== update.basePrice;
 
     this.#handleDataChange(
       UserAction.UPDATE_POINT,
@@ -180,10 +174,6 @@ export default class PointPresenter {
   };
 
   #handleDeleteClick = (point) => {
-    this.#handleDataChange(
-      UserAction.DELETE_POINT,
-      UpdateType.MINOR,
-      point,
-    );
+    this.#handleDataChange(UserAction.DELETE_POINT, UpdateType.MINOR, point);
   };
 }

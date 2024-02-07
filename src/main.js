@@ -15,21 +15,48 @@ const END_POINT = 'https://22.objects.htmlacademy.pro/big-trip';
 const pageBodyElement = document.querySelector('.page-body');
 const pageHeaderElement = pageBodyElement.querySelector('.page-header');
 const tripMainElement = pageHeaderElement.querySelector('.trip-main');
-const tripControlsFormElement = tripMainElement.querySelector('.trip-controls__filters');
+const tripControlsFormElement = tripMainElement.querySelector(
+  '.trip-controls__filters'
+);
 const pageMainElement = pageBodyElement.querySelector('.page-main');
 const tripEventsSectionElement = pageMainElement.querySelector('.trip-events');
 
 const pointsApiService = new PointsApiService(END_POINT, AUTHORIZATION);
-const destinationsModel = new DestinationsModel({ destinationsApiService: pointsApiService });
+const destinationsModel = new DestinationsModel({
+  destinationsApiService: pointsApiService,
+});
 const offersModel = new OffersModel({ offersApiService: pointsApiService });
-const pointsModel = new PointsModel({ pointsApiService, destinationsModel, offersModel });
+const pointsModel = new PointsModel({
+  pointsApiService,
+  destinationsModel,
+  offersModel,
+});
 const filterModel = new FilterModel();
 
-const infoPresenter = new InfoPresenter({ infoContainer: tripMainElement, pointsModel, destinationsModel, offersModel, filterModel });
-const filterPresenter = new FilterPresenter({ filterContainer: tripControlsFormElement, filterModel, pointsModel });
-const boardPresenter = new BoardPresenter({ boardContainer: tripEventsSectionElement, pointsModel, destinationsModel, offersModel, filterModel, onNewEventDestroy: handleNewEventFormClose });
+const infoPresenter = new InfoPresenter({
+  infoContainer: tripMainElement,
+  pointsModel,
+  destinationsModel,
+  offersModel,
+  filterModel,
+});
+const filterPresenter = new FilterPresenter({
+  filterContainer: tripControlsFormElement,
+  filterModel,
+  pointsModel,
+});
+const boardPresenter = new BoardPresenter({
+  boardContainer: tripEventsSectionElement,
+  pointsModel,
+  destinationsModel,
+  offersModel,
+  filterModel,
+  onNewEventDestroy: handleNewEventFormClose,
+});
 
-const newEventButtonComponent = new NewEventButtonView({ onClick: handleNewEventButtonClick });
+const newEventButtonComponent = new NewEventButtonView({
+  onClick: handleNewEventButtonClick,
+});
 newEventButtonComponent.element.disabled = true;
 
 function handleNewEventFormClose() {

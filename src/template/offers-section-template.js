@@ -1,6 +1,10 @@
 import { changeToDashesLowercase } from '../utils/point';
 
-const createOffersSectionTemplate = (typeOffers, pointOffersIds, isDisabled) => {
+const createOffersSectionTemplate = (
+  typeOffers,
+  pointOffersIds,
+  isDisabled,
+) => {
   if (!typeOffers || typeOffers.length === 0) {
     return '';
   }
@@ -9,7 +13,9 @@ const createOffersSectionTemplate = (typeOffers, pointOffersIds, isDisabled) => 
   <section class="event__section event__section--offers">
     <h3 class="event__section-title event__section-title--offers">Offers</h3>
     <div class="event__available-offers">
-      ${typeOffers.map((offer) => `
+      ${typeOffers
+    .map(
+      (offer) => `
         <div class="event__offer-selector">
           <input
             class="event__offer-checkbox  visually-hidden"
@@ -26,7 +32,9 @@ const createOffersSectionTemplate = (typeOffers, pointOffersIds, isDisabled) => 
             <span class="event__offer-price">${offer.price}</span>
           </label>
         </div>
-      `).join('')}
+      `,
+    )
+    .join('')}
     </div>
   </section>
 `;
@@ -35,4 +43,3 @@ const createOffersSectionTemplate = (typeOffers, pointOffersIds, isDisabled) => 
 };
 
 export default createOffersSectionTemplate;
-
