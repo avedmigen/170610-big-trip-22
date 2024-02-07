@@ -10,7 +10,7 @@ import FilterModel from './model/filter-model.js';
 import PointsApiService from './api/points-api-service.js';
 
 const AUTHORIZATION = 'Basic 1R21Y2xas~23s2D2p';
-const END_POINT = 'https://22.objects.pages.academy/big-trip';
+const END_POINT = 'https://22.objects.htmlacademy.pro/big-trip';
 
 const pageBodyElement = document.querySelector('.page-body');
 
@@ -27,14 +27,16 @@ const offersModel = new OffersModel({
 const pointsModel = new PointsModel({
   pointsApiService: pointsApiService,
   destinationsModel,
-  offersModel
+  offersModel,
 });
 
 const filterModel = new FilterModel();
 
 const pageHeaderElement = pageBodyElement.querySelector('.page-header');
 const tripMainElement = pageHeaderElement.querySelector('.trip-main');
-const tripControlsFormElement = tripMainElement.querySelector('.trip-controls__filters');
+const tripControlsFormElement = tripMainElement.querySelector(
+  '.trip-controls__filters'
+);
 
 const pageMainElement = pageBodyElement.querySelector('.page-main');
 
@@ -64,7 +66,7 @@ const boardPresenter = new BoardPresenter({
 });
 
 const newEventButtonComponent = new NewEventButtonView({
-  onClick: handleNewEventButtonClick
+  onClick: handleNewEventButtonClick,
 });
 
 newEventButtonComponent.element.disabled = true;
@@ -77,7 +79,6 @@ function handleNewEventFormClose() {
   if (pointsCount.length === 0) {
     boardPresenter.init();
   }
-
 }
 
 function handleNewEventButtonClick() {
@@ -95,21 +96,16 @@ boardPresenter.init();
 new Promise(() => {
   pointsApiService.points
     .then(() => {
-      pointsModel.init()
-        .finally(() => {
-          newEventButtonComponent.element.disabled = isError;
-          render(newEventButtonComponent, tripMainElement);
-        });
+      pointsModel.init().finally(() => {
+        newEventButtonComponent.element.disabled = isError;
+        render(newEventButtonComponent, tripMainElement);
+      });
     })
     .catch(() => {
       isError = true;
-      pointsModel.init()
-        .finally(() => {
-          newEventButtonComponent.element.disabled = isError;
-          render(newEventButtonComponent, tripMainElement);
-        });
-
+      pointsModel.init().finally(() => {
+        newEventButtonComponent.element.disabled = isError;
+        render(newEventButtonComponent, tripMainElement);
+      });
     });
 });
-
-
